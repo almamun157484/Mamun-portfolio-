@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>মামুন</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Tiro+Bangla&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="bg"><i></i><i></i><i></i></div>
+<main>
+  <section id="home">
+    <div class="pill glass"><b></b><span data-t="welcome"></span></div>
+    <h1><span data-t="iam"></span> <span class="gt" id="hn"></span></h1>
+    <div class="type"><span data-t="iam2"></span> <em id="tw"></em><span></span></div>
+    <p class="lead pre" id="intro"></p>
+    <div class="now glass rv"><div class="eq"><u></u><u></u><u></u><u></u></div><div><small data-t="now"></small><span id="nowt"></span></div></div>
+  </section>
+  <h2 id="about"><s>০১</s><span data-t="about"></span></h2>
+  <div class="glass ab rv">
+    <div class="abh"><img id="av" alt="" hidden><div class="abi"><h3 id="abn"></h3><small id="abr"></small><div class="chips" id="chips"></div></div></div>
+    <p id="about-t"></p>
+    <div class="edu" id="edu"></div>
+  </div>
+  <h2 id="blog"><s>০২</s><span data-t="blog"></span></h2><div id="posts"></div>
+  <h2 id="services" hidden><s></s><span data-t="services"></span></h2><div id="svc" class="svc"></div>
+  <h2 id="likes"><s>০৩</s><span data-t="likes"></span></h2>
+  <p class="lead pre" id="likes-t"></p><div id="bento" class="bento"></div>
+  <div id="custom"></div>
+  <h2 id="contact"><s>০৪</s><span data-t="contact"></span></h2>
+  <p class="lead pre" id="contact-t"></p><div id="ct" class="cts"></div>
+  <div class="foot"><a href="https://www.facebook.com/rtmamun11">Create by <b>MAMUN</b></a></div>
+</main>
+<nav class="dock glass">
+  <button class="dk on" data-go="home" data-t="home"></button><button class="dk" data-go="blog" data-t="blog"></button><button class="dk" data-go="services" data-t="services" id="dks" style="display:none"></button><button class="dk" data-go="likes" data-t="likes"></button><button class="dk" data-go="contact" data-t="contact"></button><button class="dk" data-go="lang" id="lb"></button><button class="dk" data-go="theme" aria-label="Theme">◐</button>
+</nav>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="keys.js"></script>
+<script src="config.js"></script>
+<script>
+var $=function(i){return document.getElementById(i)};
+var sb=null;try{if(!/^YOUR/.test(SUPABASE_URL))sb=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY)}catch(e){}
+var S=Object.assign({},DEF),posts=[],likes=(window.DEF_LIKES||[]).slice(),edu=(window.DEF_EDU||[]).slice(),svcs=[],secs=[],lang='bn',W=['…'];
+try{lang=localStorage.getItem('lang')||'bn'}catch(e){}
+var L={bn:{welcome:'আমার ছোট্ট ডিজিটাল ভুবনে স্বাগতম',iam:'আমি',iam2:'আমি',now:'এখন শুনছি',about:'আমার সম্পর্কে',blog:'ব্লগ',likes:'ভালোলাগা',contact:'যোগাযোগ',home:'হোম',services:'সার্ভিস',order:'অর্ডার করুন',done:'সম্পন্ন',ongoing:'চলমান',none:'এখনো কোনো লেখা নেই।',min:'মিনিটের পড়া',role:'ইইই শিক্ষার্থী · প্রযুক্তিপ্রেমী',chips:['ইলেকট্রিক্যাল ইঞ্জিনিয়ারিং','প্রযুক্তি','লেখালেখি','ক্রিয়েটিভ কাজ'],edu:[['ডিপ্লোমা ইন ইঞ্জিনিয়ারিং','ইলেকট্রিক্যাল টেকনোলজি','সম্পন্ন'],['বিএসসি ইন ইইই','ইলেকট্রিক্যাল ও ইলেকট্রনিক ইঞ্জিনিয়ারিং','চলমান']]},
+ en:{welcome:'Welcome to my little digital world',iam:"I'm",iam2:'I',now:'Now listening',about:'About me',blog:'Blog',likes:'Favourites',contact:'Contact',home:'Home',services:'Services',order:'Order',done:'Completed',ongoing:'Ongoing',none:'No posts yet.',min:'min read',role:'EEE Student · Tech Enthusiast',chips:['Electrical Engineering','Technology','Writing','Creative work'],edu:[['Diploma in Engineering','Electrical Technology','Completed'],['BSc in EEE','Electrical & Electronic Engineering','Ongoing']]}};
+var GL={photo:'✦',book:'❖',music:'♪',link:'↗',moment:'❀'};
+var KL={bn:{photo:'ছবি',book:'বই',music:'গান',link:'লিংক',moment:'মুহূর্ত'},en:{photo:'Photo',book:'Book',music:'Music',link:'Link',moment:'Moment'}};
+var CV=['linear-gradient(135deg,#7C3AED,#EC4899)','linear-gradient(135deg,#06B6D4,#7C3AED)','linear-gradient(135deg,#F59E0B,#EC4899)','linear-gradient(135deg,#10B981,#06B6D4)'];
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function safe(u){return /^(https?:\/\/|images\/|data:image\/)/i.test(u||'')}
+function g(o,k){return(lang==='en'?(o[k+'_en']||o[k+'_bn']):(o[k+'_bn']||o[k+'_en']))||''}
+function num(n){return lang==='bn'?n.toLocaleString('bn-BD'):String(n)}
+function mins(b){return num(Math.max(1,Math.ceil(b.split(/\s+/).length/150)))}
+function reveal(){var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target)}})},{threshold:.1});document.querySelectorAll('.rv:not(.in)').forEach(function(n){o.observe(n)})}
+function wa(n){var d=String(n||'').replace(/\D/g,'');return d.charAt(0)==='0'?'88'+d:d}
+function render(){
+  var T=L[lang];document.documentElement.lang=lang;document.title=g(S,'hero_name');
+  document.querySelectorAll('[data-t]').forEach(function(n){n.textContent=T[n.dataset.t]});
+  $('lb').textContent=lang==='bn'?'EN':'বাং';
+  $('hn').textContent=g(S,'hero_name');$('intro').textContent=g(S,'intro');$('nowt').textContent=g(S,'now');
+  $('about-t').textContent=g(S,'about');$('abn').textContent=g(S,'hero_name');$('abr').textContent=T.role;
+  $('chips').innerHTML=T.chips.map(function(c){return'<span>'+esc(c)+'</span>'}).join('');
+  $('edu').innerHTML=edu.map(function(e){var on=e.status==='ongoing';return'<div class="ed"><i class="'+(on?'on':'')+'"></i><div><b>'+esc(g(e,'title'))+'</b><small>'+esc(g(e,'sub'))+'</small></div><em>'+(on?T.ongoing:T.done)+'</em></div>'}).join('');$('edu').hidden=!edu.length;$('likes-t').textContent=g(S,'likes');$('contact-t').textContent=g(S,'contact');
+  W=g(S,'words').split(/\s*,\s*/).filter(Boolean);if(!W.length)W=['…'];wi=0;ci=0;del=false;
+  var av=$('av');if(safe(S.avatar)){av.src=S.avatar;av.hidden=false}else av.hidden=true;
+  var h='';
+  posts.forEach(function(p,i){var b=g(p,'body');h+='<article class="post glass rv"><div class="cv" style="background:'+CV[i%4]+'">'+(safe(p.cover_url)?'<img class="cvi" src="'+esc(p.cover_url)+'" alt="">':'❝')+'</div><div class="pb"><h3>'+esc(g(p,'title'))+'</h3><p>'+esc(b)+'</p><div class="meta">'+(p.tag?'<span>'+esc(p.tag)+'</span>':'')+'<span>'+mins(b)+' '+T.min+'</span></div></div></article>'});
+  $('posts').innerHTML=h||'<p class="lead">'+T.none+'</p>';
+  h='';likes.forEach(function(x){var u=/^https?:\/\//i.test(x.url||''),tag=u?'a':'div';h+='<'+tag+' class="lk glass rv'+(x.kind==='photo'&&safe(x.image_url)?' ph':'')+'"'+(u?' href="'+esc(x.url)+'" target="_blank" rel="noopener"':'')+'>'+(safe(x.image_url)?'<img src="'+esc(x.image_url)+'" alt="">':'')+'<i class="gt">'+(GL[x.kind]||'✦')+'</i><div><b>'+esc(x.title)+'</b><small>'+(KL[lang][x.kind]||'')+'</small></div></'+tag+'>'});
+  $('bento').innerHTML=h;
+  $('svc').innerHTML=svcs.map(function(s){var m='https://wa.me/'+wa(S.whatsapp)+'?text='+encodeURIComponent((lang==='en'?'I would like to order: ':'আমি এই সার্ভিসটি নিতে চাই: ')+g(s,'title'));return'<article class="sv glass rv">'+(safe(s.image_url)?'<img src="'+esc(s.image_url)+'" alt="">':'')+'<div class="svb"><h3>'+esc(g(s,'title'))+'</h3><p>'+esc(g(s,'desc'))+'</p><div class="svf"><b>'+esc(s.price||'')+'</b><a class="bt" href="'+esc(m)+'" target="_blank" rel="noopener">'+T.order+'</a></div></div></article>'}).join('');
+  $('services').hidden=!svcs.length;$('dks').style.display=svcs.length?'':'none';
+  $('custom').innerHTML=secs.map(function(c){return'<h2><s></s><span>'+esc(g(c,'title'))+'</span></h2><div class="glass cs rv">'+(safe(c.image_url)?'<img src="'+esc(c.image_url)+'" alt="">':'')+'<p>'+esc(g(c,'body'))+'</p>'+(/^https?:\/\//i.test(c.link_url||'')?'<a class="bt" href="'+esc(c.link_url)+'" target="_blank" rel="noopener">'+esc(c.link_label||'↗')+'</a>':'')+'</div>'}).join('');
+  var n=0;document.querySelectorAll('main h2').forEach(function(x){if(x.hidden)return;var s=x.querySelector('s');if(s){n++;s.textContent=n<10?(lang==='bn'?'০':'0')+num(n):num(n)}});
+
+  var IC={WhatsApp:'<path d="M20.5 3.5A11 11 0 0 0 3.2 17.3L2 22l4.8-1.2A11 11 0 1 0 20.5 3.5zm-8.5 17a9 9 0 0 1-4.6-1.3l-.3-.2-2.8.7.8-2.7-.2-.3A9 9 0 1 1 12 20.5zm5-6.7c-.3-.1-1.6-.8-1.9-.9s-.5-.1-.6.1l-.9 1.1c-.2.2-.3.2-.6.1a7.4 7.4 0 0 1-3.7-3.2c-.3-.5.3-.5.8-1.5.1-.2 0-.3 0-.5l-.9-2c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7s1.8 2.8 4.4 3.9c1.6.7 2.3.7 3.1.6.5-.1 1.6-.7 1.8-1.3s.2-1.1.2-1.3-.2-.2-.5-.4z"/>',Email:'<path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.6V17h16V7.6l-8 5.4-8-5.4zM5.2 7 12 11.6 18.8 7H5.2z"/>',Facebook:'<path d="M13.5 22v-8.2h2.8l.5-3.3h-3.3V8.4c0-.9.4-1.7 1.8-1.7h1.6V3.8S15.6 3.5 14.3 3.5c-2.7 0-4.3 1.6-4.3 4.4v2.6H7.2v3.3H10V22h3.5z"/>',Instagram:'<path d="M7.8 2h8.4A5.8 5.8 0 0 1 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8A5.8 5.8 0 0 1 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/>',Telegram:'<path d="M21.5 3.3 2.7 10.6c-.9.4-.9 1.1-.2 1.3l4.8 1.5 1.9 5.9c.2.6.5.7 1 .4l2.7-2.2 4.8 3.5c.9.5 1.5.2 1.7-.8L22.8 4.6c.3-1.2-.5-1.7-1.3-1.3zM8.3 13.1l9.7-6.1c.5-.3.9-.1.6.2l-8 7.2-.3 3.3-2-4.6z"/>'};
+  var C=[['WhatsApp',S.whatsapp,'https://wa.me/'+wa(S.whatsapp)],['Email',S.email,'mailto:'+S.email],['Facebook',S.facebook,'https://facebook.com/'+S.facebook],['Instagram',S.instagram,'https://instagram.com/'+S.instagram],['Telegram',S.telegram,'https://t.me/'+S.telegram]];
+  h='';C.forEach(function(c){if(c[1])h+='<a class="ctb glass rv" data-k="'+c[0]+'" href="'+esc(c[2])+'" target="_blank" rel="noopener" aria-label="'+c[0]+'" title="'+c[0]+'"><svg viewBox="0 0 24 24" aria-hidden="true">'+IC[c[0]]+'</svg><span>'+c[0]+'</span></a>'});
+  $('ct').innerHTML=h;reveal();
+}
+async function load(){
+  if(sb){try{
+    var a=await sb.from('settings').select('data').eq('id',1).maybeSingle();if(a.data&&a.data.data)Object.assign(S,a.data.data);
+    var b=await sb.from('posts').select('*').eq('published',true).order('created_at',{ascending:false});if(b.data)posts=b.data;
+    var c=await sb.from('likes').select('*').order('created_at',{ascending:false});if(c.data&&c.data.length)likes=c.data;
+    var d=await sb.from('education').select('*').order('sort');if(d.data&&d.data.length)edu=d.data;
+    var e=await sb.from('services').select('*').eq('published',true).order('sort');if(e.data)svcs=e.data;
+    var f=await sb.from('sections').select('*').eq('published',true).order('sort');if(f.data)secs=f.data;
+  }catch(e){}}
+  render();
+}
+$('posts').addEventListener('click',function(e){var p=e.target.closest('.post');if(p)p.classList.toggle('open')});
+document.querySelector('.dock').addEventListener('click',function(e){
+  var b=e.target.closest('[data-go]');if(!b)return;var k=b.dataset.go;
+  if(k==='theme'){var r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark';return}
+  if(k==='lang'){lang=lang==='bn'?'en':'bn';try{localStorage.setItem('lang',lang)}catch(x){}render();return}
+  document.querySelectorAll('.dk').forEach(function(n){n.classList.toggle('on',n===b)});
+  $(k).scrollIntoView({behavior:'smooth',block:'start'});
+});
+addEventListener('pointermove',function(e){var s=document.body.style;s.setProperty('--mx',e.clientX+'px');s.setProperty('--my',e.clientY+'px')});
+$('bento').addEventListener('pointermove',function(e){var c=e.target.closest('.lk');if(!c)return;var r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(600px) rotateY('+x*12+'deg) rotateX('+(-y*12)+'deg)'});
+$('bento').addEventListener('pointerout',function(e){var c=e.target.closest('.lk');if(c)c.style.transform=''});
+var wi=0,ci=0,del=false,tw=$('tw');
+function tick(){var w=W[wi]||'';ci+=del?-1:1;tw.textContent=w.slice(0,ci);var d=del?60:110;if(!del&&ci>=w.length){del=true;d=1400}else if(del&&ci<=0){del=false;wi=(wi+1)%W.length;d=300}setTimeout(tick,d)}
+render();tick();load();
+</script>
+</body>
+</html>
